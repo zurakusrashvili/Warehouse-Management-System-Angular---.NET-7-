@@ -1,0 +1,200 @@
+<c-row>
+    <c-col md="6">
+      <c-card class="mb-4">
+        <c-card-header ngPreserveWhitespaces>
+          <strong>{{ editPage ? "Edit" : "Delete" }}</strong>
+          <small>Stand</small>
+        </c-card-header>
+        <c-card-body>
+          <form
+            cForm
+            [formGroup]="editLocationForm"
+            novalidate
+            (ngSubmit)="onSubmit()"
+          >
+                <!-- Stand -->
+                <c-row class="mb-1">
+                    <label cCol [sm]="4" cLabel="col" for="standId"
+                      >Stand</label
+                    >
+                    <c-col
+                      [sm]="4"
+                      *ngIf="editLocationForm.controls['standId'] as ctrl"
+                    >
+                      <select
+                        formControlName="standId"
+                        cSelect
+                        id="validationTooltip04"
+                        required
+                        autocomplete="off"
+                        [autofocus]="true"
+                        type="number"
+                        [valid]="
+                        ctrl.touched && ctrl.valid
+                          ? true
+                          : (submitted || ctrl.touched) && ctrl.invalid
+                          ? false
+                          : undefined
+                      "
+                      >
+                        <option value="">Choose...</option>
+                        <option
+                          *ngFor="
+                            let stand of stands;
+                            let i = index
+                          "
+                          [ngValue]="stand.id"
+                          [selected]="stand"
+                        >
+                          {{ stand.standName }}
+                        </option>
+                      </select>
+          
+                      <c-form-feedback
+                        *ngIf="submitted || ctrl.invalid"
+                        [valid]="!(submitted || ctrl.invalid)"
+                      >
+                        <ng-container *ngIf="ctrl.errors as errors">
+                          <div *ngIf="errors?.['required']">
+                            Stand is required
+                          </div>
+                        </ng-container>
+                      </c-form-feedback>
+                    </c-col>
+                  </c-row>
+            <!-- shelfNumber -->
+            <c-row class="mb-1">
+              <label cCol [sm]="4" cLabel="col" for="shelfNumber">Shelf Number</label>
+              <c-col
+                [sm]="8"
+                *ngIf="editLocationForm.controls['shelfNumber'] as ctrl"
+              >
+                <input
+                  cFormControl
+                  id="shelfNumber"
+                  formControlName="shelfNumber"
+                  placeholder="Shelf Number"
+                  autocomplete="off"
+                  required
+                  [autofocus]="true"
+                  [valid]="
+                    ctrl.touched && ctrl.valid
+                      ? true
+                      : (submitted || ctrl.touched) && ctrl.invalid
+                      ? false
+                      : undefined
+                  "
+                />
+                <c-form-feedback
+                  *ngIf="submitted || ctrl.invalid"
+                  [valid]="!(submitted || ctrl.invalid)"
+                >
+                  <ng-container *ngIf="ctrl.errors as errors">
+                    <div *ngIf="errors?.['required']">Stand Name is required</div>
+                  </ng-container>
+                </c-form-feedback>
+              </c-col>
+            </c-row>
+
+   <!-- Place Number -->
+   <c-row class="mb-1">
+    <label cCol [sm]="4" cLabel="col" for="placeNumber">Place Number</label>
+    <c-col [sm]="4" *ngIf="editLocationForm.controls['placeNumber'] as ctrl">
+      <input
+        cFormControl
+        id="placeNumber"
+        formControlName="placeNumber"
+        placeholder=" Place Number"
+        autocomplete="off"
+        required
+        [autofocus]="true"
+        [valid]="
+          ctrl.touched && ctrl.valid
+            ? true
+            : (submitted || ctrl.touched) && ctrl.invalid
+            ? false
+            : undefined
+        "
+      />
+      <c-form-feedback
+        *ngIf="submitted || ctrl.invalid"
+        [valid]="!(submitted || ctrl.invalid)"
+      >
+        <ng-container *ngIf="ctrl.errors as errors">
+          <div *ngIf="errors?.['required']">Place Number is required</div>
+        </ng-container>
+      </c-form-feedback>
+    </c-col>
+  </c-row>
+ 
+           
+  
+  
+            <c-button-group>
+              <button
+                cButton
+                color="primary"
+                type="submit"
+                [disabled]="
+                  editPage
+                    ? editLocationForm.invalid
+                    : editLocationForm.invalid
+                "
+                [tabindex]="'0'"
+              >
+                {{ editPage ? "Save" : "Delete" }}
+              </button>
+  
+              <div *ngIf="editPage">
+                <button
+                  cButton
+                  color="success"
+  
+                  (click)="onValidate()"
+                  [tabindex]="'0'"
+                >
+                  Validate
+                </button>
+                <button
+                  cButton
+                  color="danger"
+                  type="reset"
+                  (click)="onReset()"
+                  [tabindex]="'0'"
+                >
+                  Reset
+                </button>
+              </div>
+  
+              <button
+                cButton
+                color="secondary"
+                type="reset"
+                routerLink="/master-data/stands"
+                [tabindex]="'0'"
+              >
+                Back
+              </button>
+            </c-button-group>
+          </form>
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </c-row>
+  
+  <c-toaster [placement]="position" class="p-3" position="fixed">
+    <c-toast [color]="toastrColor" [(visible)]="visible" (visibleChange)="(true)">
+      <c-toast-header>
+        {{ editPage ? "Edit Location" : "Delete Location" }}
+      </c-toast-header>
+      <c-toast-body>
+        <p *ngFor="let message of errorMessages">
+          {{ message }}
+        </p>
+        <!-- <c-progress thin>
+          <c-progress-bar [value]="percentage"></c-progress-bar>
+        </c-progress> -->
+      </c-toast-body>
+    </c-toast>
+  </c-toaster>
+  

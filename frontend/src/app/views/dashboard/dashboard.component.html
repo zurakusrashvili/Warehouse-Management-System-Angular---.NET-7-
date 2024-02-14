@@ -1,0 +1,176 @@
+<!-- <app-widgets-dropdown></app-widgets-dropdown>
+
+<app-widgets-brand [withCharts]="true"></app-widgets-brand> -->
+
+<!-- <c-row>
+  <c-col xs>
+    <c-card class="mb-4">
+      <c-card-header>Sales</c-card-header>
+      <c-card-body>
+        <c-row>
+          <c-col md="6" xl="6" xs="12">
+            <c-row>
+              <c-col sm="6">
+                <div
+                  class="border-start border-start-4 border-start-info py-1 px-3 mb-3"
+                >
+                  <div class="text-medium-emphasis small">Sales Order</div>
+                  <div class="fs-5 fw-semibold">
+                    {{ soCount }}
+                  </div>
+                </div>
+              </c-col>
+              <c-col sm="6">
+                <div
+                  class="border-start border-start-4 border-start-danger py-1 px-3 mb-3"
+                >
+                  <div class="text-medium-emphasis small">Total Sales</div>
+                  <div class="fs-5 fw-semibold">
+                    {{ this.totalSales | currency : "GEL" }}
+                  </div>
+                </div>
+              </c-col>
+            </c-row>
+          </c-col>
+
+          <c-col md="6" xl="6" xs="12">
+            <c-row>
+              <c-col sm="6">
+                <div
+                  class="border-start border-start-4 border-start-warning py-1 px-3 mb-3"
+                >
+                  <div class="text-medium-emphasis small">Total Bought</div>
+                  <div class="fs-5 fw-semibold">
+                    {{ totalSalesBought | currency : "GEL" }}
+                  </div>
+                </div>
+              </c-col>
+              <c-col sm="6">
+                <div
+                  class="border-start border-start-4 border-start-success py-1 px-3 mb-3"
+                >
+                  <div class="text-medium-emphasis small">
+                    Total Sold
+                  </div>
+                  <div class="fs-5 fw-semibold">
+                    {{
+                      this.totalSalesSold
+                        | currency : "GEL"
+                    }}
+                  </div>
+                </div>
+              </c-col>
+            </c-row>
+          </c-col>
+        </c-row>
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row> -->
+<c-row>
+  <c-col xs>
+    <c-card class="mb-4">
+      <c-card-header>Products</c-card-header>
+      <c-card-body>
+        <c-row>
+          <c-col md="6" xl="6" xs="12">
+            <c-row>
+              <c-col sm="6">
+                <div
+                  class="border-start border-start-4 border-start-info py-1 px-3 mb-3"
+                >
+                  <div class="text-medium-emphasis small">Products Count</div>
+                  <div class="fs-5 fw-semibold">
+                    {{ productCount }}
+                  </div>
+                </div>
+              </c-col>
+              <c-col sm="6">
+                <div
+                  class="border-start border-start-4 border-start-danger py-1 px-3 mb-3"
+                >
+                  <div class="text-medium-emphasis small">
+                    Total Products (value on Hand)
+                  </div>
+                  <div class="fs-5 fw-semibold">
+                    {{ this.totalProductValue | currency : "GEL" }}
+                  </div>
+                </div>
+              </c-col>
+            </c-row>
+          </c-col>
+
+          <c-col md="6" xl="6" xs="12">
+            <c-row>
+              <c-col sm="6">
+                <!-- <div
+                  class="border-start border-start-4 border-start-warning py-1 px-3 mb-3"
+                >
+                  <div class="text-medium-emphasis small">Total Sales Paid</div>
+                  <div class="fs-5 fw-semibold">
+                    {{ totalSalesPaid | number : "1.2-2" | currency : "GEL" }}
+                  </div>
+                </div> -->
+              </c-col>
+              <c-col sm="6">
+                <!-- <div
+                  class="border-start border-start-4 border-start-success py-1 px-3 mb-3"
+                >
+                  <div class="text-medium-emphasis small">
+                    Total Orders Not Yet Paid
+                  </div>
+                  <div class="fs-5 fw-semibold">
+                    {{
+                      this.totalSalesNotYetPaid
+                        | number : "1.2-2"
+                        | currency : "GEL"
+                    }}
+                  </div>
+                </div> -->
+              </c-col>
+            </c-row>
+          </c-col>
+        </c-row>
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>
+
+<c-row>
+  <c-col>
+    <c-col md="6" xl="6" xs="12">
+      <c-card class="mb-4">
+        <c-card-header>Inventory</c-card-header>
+        <c-card-body>
+          <table
+            [hover]="true"
+            [responsive]="true"
+            [striped]="true"
+            align="middle"
+            cTable
+            class="mb-0 border"
+          >
+            <thead cTableColor="light">
+              <tr>
+                <th>Products</th>
+                <th class="text-center">Qty Remaining</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let product of products; index as i">
+                <td>
+                  <div>{{ product.name }}</div>
+                </td>
+
+                <td class="text-center">
+                  <div>{{ getProductQuantity(product) }}</div>
+                  <!-- <div>{{ product.qtyInStock }}</div> -->
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </c-col>
+</c-row>

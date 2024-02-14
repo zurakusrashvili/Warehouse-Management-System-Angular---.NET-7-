@@ -1,0 +1,77 @@
+<c-row>
+  <c-col xs>
+    <c-card class="mb-4">
+      <c-card-header
+        >Sales Order
+        <button
+          routerLink="/sales-order/add"
+          cButton
+          class="me-1 float-end"
+          color="primary"
+          value="Add"
+        >
+          Add
+        </button>
+      </c-card-header>
+      <c-card-body>
+        <table
+          [hover]="true"
+          [responsive]="true"
+          [striped]="true"
+          align="middle"
+          cTable
+          class="mb-0 border"
+        >
+          <thead cTableColor="light">
+            <tr>
+              <th>Order No</th>
+              <th>Product</th>
+              <th>Qty</th>
+              <th>Customer/Supplier</th>
+              <th>Order Date</th>
+              <th>Total</th>
+              <th>TransactionType</th>
+              <!-- <th>Actions</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let salesOrder of salesOrders; index as i">
+              <td>{{ salesOrder.id }}</td>
+              <td>{{ getProductName(salesOrder.productId) }}</td>
+              <td>{{ salesOrder.quantity }}</td>
+              <td>
+                <span *ngIf="salesOrder.customerId !== 0 || salesOrder.customerId !== null">{{ getCustomerName(salesOrder.customerId) }}</span>
+                <span *ngIf="salesOrder.supplierId !== 0 || salesOrder.supplierId !== null">{{ getSupplierName(salesOrder.supplierId) }}</span>
+              </td>
+              <td>{{ salesOrder.orderDate | date : "MM/dd/yyyy" }}</td>
+              <td>{{ salesOrder.total | number : "1.2-2" }}</td>
+              <td>{{getTransactionTypeName(salesOrder.transactionTypeId)}}</td>
+              <!-- <td>
+                <button
+                  [routerLink]="['/sales-order/edit', salesOrder.id]"
+                  cButton
+                  class="me-1"
+                  color="success"
+                  type="submit"
+                  value="Edit"
+                >
+                  Edit
+                </button>
+                <button
+                  [routerLink]="['/sales-order/delete', salesOrder.id]"
+                  cButton
+                  class="me-1"
+                  color="danger"
+                  type="submit"
+                  value="Delete"
+                >
+                  Delete
+                </button>
+              </td> -->
+            </tr>
+          </tbody>
+        </table>
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>

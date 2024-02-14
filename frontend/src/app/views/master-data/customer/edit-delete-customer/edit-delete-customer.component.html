@@ -1,0 +1,183 @@
+<c-row>
+  <c-col md="6">
+    <c-card class="mb-4">
+      <c-card-header ngPreserveWhitespaces>
+        <strong>{{ editPage ? "Edit" : "Delete" }}</strong>
+        <small>Customer</small>
+      </c-card-header>
+      <c-card-body>
+        <form
+        cForm
+        [formGroup]="editCustomerForm"
+        novalidate
+        (ngSubmit)="onSubmit()"
+      >
+        <!-- FirstName -->
+        <c-row class="mb-1">
+          <label cCol [sm]="4" cLabel="col" for="name">Name</label>
+          <c-col
+            [sm]="8"
+            *ngIf="editCustomerForm.controls['name'] as ctrl"
+          >
+            <input
+              cFormControl
+              id="name"
+              formControlName="name"
+              placeholder="Name"
+              autocomplete="off"
+              required
+              [autofocus]="true"
+              [valid]="
+                ctrl.touched && ctrl.valid
+                  ? true
+                  : (submitted || ctrl.touched) && ctrl.invalid
+                  ? false
+                  : undefined
+              "
+            />
+            <c-form-feedback
+              *ngIf="submitted || ctrl.invalid"
+              [valid]="!(submitted || ctrl.invalid)"
+            >
+              <ng-container *ngIf="ctrl.errors as errors">
+                <div *ngIf="errors?.['required']">Name is required</div>
+              </ng-container>
+            </c-form-feedback>
+          </c-col>
+        </c-row>
+
+        <!-- address -->
+        <c-row class="mb-1">
+          <label cCol [sm]="4" cLabel="col" for="address">Address</label>
+          <c-col
+            [sm]="8"
+            *ngIf="editCustomerForm.controls['address'] as ctrl"
+          >
+            <input
+              cFormControl
+              id="address"
+              formControlName="address"
+              placeholder="Address"
+              autocomplete="off"
+              required
+              [valid]="
+                ctrl.touched && ctrl.valid
+                  ? true
+                  : (submitted || ctrl.touched) && ctrl.invalid
+                  ? false
+                  : undefined
+              "
+            />
+            <c-form-feedback
+              *ngIf="submitted || ctrl.invalid"
+              [valid]="!(submitted || ctrl.invalid)"
+            >
+              <ng-container *ngIf="ctrl.errors as errors">
+                <div *ngIf="errors?.['required']">
+                  Address is required
+                </div>
+              </ng-container>
+            </c-form-feedback>
+          </c-col>
+        </c-row>
+        <!-- Phonenumber -->
+        <c-row class="mb-1">
+          <label cCol [sm]="4" cLabel="col" for="phoneNumber">Phonenumber</label>
+          <c-col
+            [sm]="8"
+            *ngIf="editCustomerForm.controls['phoneNumber'] as ctrl"
+          >
+            <input
+              cFormControl
+              id="phoneNumber"
+              type="text"
+              formControlName="phoneNumber"
+              placeholder="Phonenumber"
+              autocomplete="off"
+              required
+              [valid]="
+                ctrl.touched && ctrl.valid
+                  ? true
+                  : (submitted || ctrl.touched) && ctrl.invalid
+                  ? false
+                  : undefined
+              "
+            />
+            <c-form-feedback
+              *ngIf="submitted || ctrl.invalid"
+              [valid]="!(submitted || ctrl.invalid)"
+            >
+              <ng-container *ngIf="ctrl.errors as errors">
+                <div *ngIf="errors?.['required']">Phonenumber is required</div>
+              </ng-container>
+            </c-form-feedback>
+          </c-col>
+        </c-row>
+
+        <c-button-group>
+          <button
+            cButton
+            color="primary"
+            type="submit"
+            [disabled]="
+              editPage
+                ? editCustomerForm.untouched || editCustomerForm.invalid
+                : editCustomerForm.invalid
+            "
+            [tabindex]="'0'"
+          >
+            {{ editPage ? "Save" : "Delete" }}
+          </button>
+
+          <div *ngIf="editPage">
+            <button
+              cButton
+              color="success"
+              [disabled]="editCustomerForm.valid"
+              (click)="onValidate()"
+              [tabindex]="'0'"
+            >
+              Validate
+            </button>
+            <button
+              cButton
+              color="danger"
+              type="reset"
+              (click)="onReset()"
+              [tabindex]="'0'"
+            >
+              Reset
+            </button>
+          </div>
+
+          <button
+            cButton
+            color="secondary"
+            type="reset"
+            routerLink="/master-data/customers"
+            [tabindex]="'0'"
+          >
+            Back
+          </button>
+        </c-button-group>
+      </form>
+      </c-card-body>
+    </c-card>
+  </c-col>
+</c-row>
+
+<c-toaster [placement]="position" class="p-3" position="fixed">
+  <c-toast [color]="toastrColor" [(visible)]="visible" (visibleChange)="(true)">
+    <c-toast-header>
+      {{ editPage ? "Edit Customer" : "Delete Customer" }}
+    </c-toast-header>
+    <c-toast-body>
+      <p *ngFor="let message of errorMessages">
+        {{ message }}
+      </p>
+      <!-- <c-progress thin>
+        <c-progress-bar [value]="percentage"></c-progress-bar>
+      </c-progress> -->
+    </c-toast-body>
+  </c-toast>
+</c-toaster>

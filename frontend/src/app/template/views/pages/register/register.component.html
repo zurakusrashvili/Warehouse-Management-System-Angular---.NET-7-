@@ -1,0 +1,105 @@
+<div class="bg-light min-vh-100 d-flex flex-row align-items-center">
+  <c-container>
+    <c-row class="justify-content-center">
+      <c-col lg="7" md="9" xl="6">
+        <c-card class="mx-4">
+          <c-card-body class="p-4">
+            <form  cForm
+            [formGroup]="registerForm"
+            novalidate
+            (ngSubmit)="onSubmit()">
+              <h1>Register</h1>
+              <p class="text-medium-emphasis">Create your account</p>
+              <c-input-group class="mb-3" *ngIf="registerForm.controls['username'] as ctrl">
+                <span cInputGroupText>
+                  <svg cIcon name="cilUser"></svg>
+                </span>
+                <input 
+                cFormControl 
+                placeholder="Username" 
+                id="name"
+                formControlName="username"
+                autocomplete="off"
+                required
+                [autofocus]="true"
+                [valid]="
+               ctrl.touched && ctrl.valid
+                 ? true
+                 : (submitted || ctrl.touched) && ctrl.invalid
+                 ? false
+                 : undefined
+             "/>
+              </c-input-group>
+              <c-input-group class="mb-3" *ngIf="registerForm.controls['email'] as ctrl">
+                <span cInputGroupText>&#64;</span>
+                <input
+                  cFormControl 
+                  type="email"
+                  placeholder="Email" 
+                  id="email"
+                  formControlName="email"
+                  autocomplete="off"
+                  required
+                  [autofocus]="true"
+                  [valid]="
+                 ctrl.touched && ctrl.valid
+                   ? true
+                   : (submitted || ctrl.touched) && ctrl.invalid
+                   ? false
+                   : undefined
+               "/>
+              </c-input-group>
+              <c-input-group class="mb-3" *ngIf="registerForm.controls['password'] as ctrl">
+                <span cInputGroupText>
+                  <svg cIcon name="cilLockLocked"></svg>
+                </span>
+                <input
+                  cFormControl 
+                  type="password"
+                  placeholder="Password" 
+                  id="password"
+                  formControlName="password"
+                  autocomplete="off"
+                  required
+                  [autofocus]="true"
+                  [valid]="
+                 ctrl.touched && ctrl.valid
+                   ? true
+                   : (submitted || ctrl.touched) && ctrl.invalid
+                   ? false
+                   : undefined
+               "/>
+              <span class="passvalidate">პაროლის არჩევისას გამოიყენეთ 8 სიმბოლო, მათ შორის ზედა და ქვედა რეგისტრი, სპეც სიმოლოები და ციფრები.</span>
+
+              </c-input-group>
+              <div class="d-grid">
+                <button cButton color="success" type="submit">Create Account</button>
+              </div>
+            </form>
+          </c-card-body>
+        </c-card>
+      </c-col>
+    </c-row>
+  </c-container>
+</div>
+
+
+
+<c-toaster [placement]="position" class="p-3" position="fixed"
+>
+  <c-toast
+    [color]="toastrColor"
+    [(visible)]="visible"
+    (visibleChange)="true"
+  >
+    <c-toast-header> Authentication </c-toast-header>
+    <c-toast-body>
+      <p *ngFor="let message of messages">
+        {{ message }}
+      </p>
+      <!-- <c-progress thin>
+        <c-progress-bar [value]="percentage"></c-progress-bar>
+      </c-progress> -->
+    </c-toast-body>
+  </c-toast>
+</c-toaster>

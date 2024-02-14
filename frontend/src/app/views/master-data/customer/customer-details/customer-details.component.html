@@ -1,0 +1,132 @@
+<c-row>
+    <c-col md="6">
+      <c-card class="mb-4">
+        <c-card-header ngPreserveWhitespaces>
+          <strong>Add</strong>
+          <small>Customer</small>
+        </c-card-header>
+        <c-card-body>
+          <form
+            cForm
+            [formGroup]="addCustomerForm"
+            novalidate
+          >
+            <!-- FirstName -->
+            <c-row class="mb-1">
+              <label cCol [sm]="4" cLabel="col" for="name">Name</label>
+              <c-col
+                [sm]="8"
+                *ngIf="addCustomerForm.controls['name'] as ctrl"
+              >
+                <input
+                
+                  cFormControl
+                  id="name"
+                  formControlName="name"
+                  placeholder="Name"
+                  autocomplete="off"
+                  required
+                  [autofocus]="true"
+                  [valid]="
+                    ctrl.touched && ctrl.valid
+                      ? true
+                      : (submitted || ctrl.touched) && ctrl.invalid
+                      ? false
+                      : undefined
+                  "
+                />
+                <c-form-feedback
+                  *ngIf="submitted || ctrl.invalid"
+                  [valid]="!(submitted || ctrl.invalid)"
+                >
+                  <ng-container *ngIf="ctrl.errors as errors">
+                    <div *ngIf="errors?.['required']">Name is required</div>
+                  </ng-container>
+                </c-form-feedback>
+              </c-col>
+            </c-row>
+  
+            <!-- address -->
+            <c-row class="mb-1">
+              <label cCol [sm]="4" cLabel="col" for="address">Address</label>
+              <c-col
+                [sm]="8"
+                *ngIf="addCustomerForm.controls['address'] as ctrl"
+              >
+                <input
+                  cFormControl
+                  id="address"
+                  formControlName="address"
+                  placeholder="Address"
+                  autocomplete="off"
+                  required
+                  [valid]="
+                    ctrl.touched && ctrl.valid
+                      ? true
+                      : (submitted || ctrl.touched) && ctrl.invalid
+                      ? false
+                      : undefined
+                  "
+                />
+                <c-form-feedback
+                  *ngIf="submitted || ctrl.invalid"
+                  [valid]="!(submitted || ctrl.invalid)"
+                >
+                  <ng-container *ngIf="ctrl.errors as errors">
+                    <div *ngIf="errors?.['required']">
+                      Address is required
+                    </div>
+                  </ng-container>
+                </c-form-feedback>
+              </c-col>
+            </c-row>
+            <!-- Phonenumber -->
+            <c-row class="mb-1">
+              <label cCol [sm]="4" cLabel="col" for="phoneNumber">Phonenumber</label>
+              <c-col
+                [sm]="8"
+                *ngIf="addCustomerForm.controls['phoneNumber'] as ctrl"
+              >
+                <input
+                  cFormControl
+                  id="phoneNumber"
+                  type="text"
+                  formControlName="phoneNumber"
+                  placeholder="Phonenumber"
+                  autocomplete="off"
+                  required
+                  [valid]="
+                    ctrl.touched && ctrl.valid
+                      ? true
+                      : (submitted || ctrl.touched) && ctrl.invalid
+                      ? false
+                      : undefined
+                  "
+                />
+                <c-form-feedback
+                  *ngIf="submitted || ctrl.invalid"
+                  [valid]="!(submitted || ctrl.invalid)"
+                >
+                  <ng-container *ngIf="ctrl.errors as errors">
+                    <div *ngIf="errors?.['required']">Phonenumber is required</div>
+                  </ng-container>
+                </c-form-feedback>
+              </c-col>
+            </c-row>
+  
+            <c-button-group>  
+              <button
+                cButton
+                color="secondary"
+                type="reset"
+                routerLink="/master-data/customers"
+                [tabindex]="'0'"
+              >
+                Back
+              </button>
+            </c-button-group>
+          </form>
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </c-row>

@@ -1,0 +1,320 @@
+<c-col xs="12">
+  <c-card class="mb-4">
+    <c-card-header ngPreserveWhitespaces>
+      <strong>Add</strong> <small>Sales Order</small>
+    </c-card-header>
+    <c-card-body>
+      <form cForm [formGroup]="addForm" novalidate (ngSubmit)="onSubmit()">
+        <!-- TransactionType-->
+        <c-row class="mb-1">
+          <label cCol [sm]="4" cLabel="col" for="transactionTypeId">Transaction Type</label>
+          <c-col [sm]="4" *ngIf="addForm.controls['transactionTypeId'] as ctrl">
+            <select
+              formControlName="transactionTypeId"
+              cSelect
+              id="validationTooltip04"
+              required
+              (change)="onTransactionTypeChange($event)"
+              autocomplete="off"
+              [autofocus]="true"
+              type="number"
+              [valid]="
+                ctrl.touched && ctrl.valid
+                  ? true
+                  : (submitted || ctrl.touched) && ctrl.invalid
+                  ? false
+                  : undefined
+              "
+            >
+              <option value="">Choose...</option>
+              <option
+                *ngFor="let tt of transactionTypes; let i = index"
+                [ngValue]="tt.id"
+              >
+                {{ tt.name }}
+              </option>
+            </select>
+
+            <c-form-feedback
+              *ngIf="submitted || ctrl.invalid"
+              [valid]="!(submitted || ctrl.invalid)"
+            >
+              <ng-container *ngIf="ctrl.errors as errors">
+                <div *ngIf="errors?.['required']">
+                  Product is required
+                </div>
+              </ng-container>
+            </c-form-feedback>
+          </c-col>
+        </c-row>
+
+
+
+        <!-- Product-->
+        <c-row class="mb-1">
+          <label cCol [sm]="4" cLabel="col" for="productId">Product</label>
+          <c-col [sm]="4" *ngIf="addForm.controls['productId'] as ctrl">
+            <select
+              formControlName="productId"
+              cSelect
+              id="validationTooltip04"
+              required
+              (change)="onChangeProduct($event)"
+              autocomplete="off"
+              [autofocus]="true"
+              type="number"
+              [valid]="
+                ctrl.touched && ctrl.valid
+                  ? true
+                  : (submitted || ctrl.touched) && ctrl.invalid
+                  ? false
+                  : undefined
+              "
+            >
+              <option value="">Choose...</option>
+              <option
+                *ngFor="let product of products; let i = index"
+                [ngValue]="product.id"
+              >
+                {{ product.name }}
+              </option>
+            </select>
+
+            <c-form-feedback
+              *ngIf="submitted || ctrl.invalid"
+              [valid]="!(submitted || ctrl.invalid)"
+            >
+              <ng-container *ngIf="ctrl.errors as errors">
+                <div *ngIf="errors?.['required']">
+                  Product is required
+                </div>
+              </ng-container>
+            </c-form-feedback>
+          </c-col>
+        </c-row>
+
+        <!-- Qty -->
+        <c-row class="mb-1">
+          <label cCol [sm]="4" cLabel="col" for="quantity">Quantity</label>
+          <c-col [sm]="4" *ngIf="addForm.controls['quantity'] as ctrl">
+            <input
+              cFormControl
+              id="quantity"
+              formControlName="quantity"
+              placeholder="Quantity"
+              autocomplete="off"
+              [autofocus]="true"
+              required
+              (change)="onChangeQty($event)"
+              type="number"
+              [valid]="
+                ctrl.touched && ctrl.valid
+                  ? true
+                  : (submitted || ctrl.touched) && ctrl.invalid
+                  ? false
+                  : undefined
+              "
+            />
+            <c-form-feedback
+              *ngIf="submitted || ctrl.invalid"
+              [valid]="!(submitted || ctrl.invalid)"
+            >
+              <ng-container *ngIf="ctrl.errors as errors">
+                <div *ngIf="errors?.['required']">Quantity is required</div>
+              </ng-container>
+            </c-form-feedback>
+          </c-col>
+        </c-row>
+
+        <!-- Order Date -->
+        <c-row class="mb-1">
+          <label cCol [sm]="4" cLabel="col" for="orderDate">Order Date</label>
+          <c-col [sm]="4" *ngIf="addForm.controls['orderDate'] as ctrl">
+            <input
+              cFormControl
+              id="orderDate"
+              formControlName="orderDate"
+              placeholder="Order Date"
+              autocomplete="off"
+              [autofocus]="true"
+              required
+              (change)="onChangeOrderDate($event)"
+              type="date"
+              [valid]="
+                ctrl.touched && ctrl.valid
+                  ? true
+                  : (submitted || ctrl.touched) && ctrl.invalid
+                  ? false
+                  : undefined
+              "
+            />
+            <c-form-feedback
+              *ngIf="submitted || ctrl.invalid"
+              [valid]="!(submitted || ctrl.invalid)"
+            >
+              <ng-container *ngIf="ctrl.errors as errors">
+                <div *ngIf="errors?.['required']">Order Date is required</div>
+              </ng-container>
+            </c-form-feedback>
+          </c-col>
+        </c-row>
+
+                <!-- Supplier-->
+                <c-row class="mb-1" *ngIf="chosenTransactionTypeId == 1">
+                  <label cCol [sm]="4" cLabel="col" for="supplierId">Supplier</label>
+                  <c-col [sm]="4" *ngIf="addForm.controls['supplierId'] as ctrl">
+                    <select
+                      formControlName="supplierId"
+                      cSelect
+                      id="validationTooltip04"
+                      autocomplete="off"
+                      [autofocus]="true"
+                      type="number"
+                      [valid]="
+                        ctrl.touched && ctrl.valid
+                          ? true
+                          : (submitted || ctrl.touched) && ctrl.invalid
+                          ? false
+                          : undefined
+                      "
+                    >
+                      <option value="">Choose...</option>
+                      <option
+                        *ngFor="let supplier of suppliers; let i = index"
+                        [ngValue]="supplier.id"
+                      >
+                        {{ supplier.name }}
+                      </option>
+                    </select>
+        
+                    <!-- <c-form-feedback
+                      *ngIf="submitted || ctrl.invalid"
+                      [valid]="!(submitted || ctrl.invalid)"
+                    >
+                      <ng-container *ngIf="ctrl.errors as errors">
+                        <div *ngIf="errors?.['required']">
+                          Customer is required
+                        </div>
+                      </ng-container>
+                    </c-form-feedback> -->
+                  </c-col>
+                </c-row>
+
+
+        <!-- Customer-->
+        <c-row class="mb-1" *ngIf="chosenTransactionTypeId == 2">
+          <label cCol [sm]="4" cLabel="col" for="customerId">Customer</label>
+          <c-col [sm]="4" *ngIf="addForm.controls['customerId'] as ctrl">
+            <select
+              formControlName="customerId"
+              cSelect
+              id="validationTooltip04"
+              autocomplete="off"
+              [autofocus]="true"
+              type="number"
+              [valid]="
+                ctrl.touched && ctrl.valid
+                  ? true
+                  : (submitted || ctrl.touched) && ctrl.invalid
+                  ? false
+                  : undefined
+              "
+            >
+              <option value="">Choose...</option>
+              <option
+                *ngFor="let customer of customers; let i = index"
+                [ngValue]="customer.id"
+              >
+                {{ customer.name }}
+              </option>
+            </select>
+<!-- 
+            <c-form-feedback
+              *ngIf="submitted || ctrl.invalid"
+              [valid]="!(submitted || ctrl.invalid)"
+            >
+              <ng-container *ngIf="ctrl.errors as errors">
+                <div *ngIf="errors?.['required']">
+                  Customer is required
+                </div>
+              </ng-container>
+            </c-form-feedback> -->
+          </c-col>
+        </c-row>
+
+        <!-- Total -->
+        <!-- <c-row class="mb-1">
+          <label cCol [sm]="4" cLabel="col" for="total">Total</label>
+          <c-col [sm]="4" *ngIf="addForm.controls['total'] as ctrl">
+            <input
+              cFormControl
+              id="total"
+              formControlName="total"
+              placeholder="Total"
+              autocomplete="off"
+              [autofocus]="true"
+              required
+              readonly
+              (change)="onChangeTotal($event)"
+              type="number"
+            />
+            <c-form-feedback
+              *ngIf="submitted || ctrl.invalid"
+              [valid]="!(submitted || ctrl.invalid)"
+            >
+              <ng-container *ngIf="ctrl.errors as errors">
+                <div *ngIf="errors?.['required']">Tax is required</div>
+              </ng-container>
+            </c-form-feedback>
+          </c-col>
+        </c-row> -->
+        <!-- Buttons -->
+
+        <c-col xs="12">
+          <button
+            cButton
+            color="danger"
+            class="me-1"
+            type="submit"
+            [disabled]="addForm.invalid"
+            [tabindex]="'0'"
+          >
+            Save
+          </button>
+          <button
+          cButton
+          color="success"
+
+          (click)="onValidate()"
+          [tabindex]="'0'"
+        >
+          Validate
+        </button>
+          <button
+            cButton
+            color="secondary"
+            type="reset"
+            [tabindex]="'0'"
+            routerLink="/sales-order"
+          >
+            Back
+          </button>
+        </c-col>
+      </form>
+    </c-card-body>
+  </c-card>
+</c-col>
+
+<c-toaster [placement]="position" class="p-3" position="fixed">
+  <c-toast [color]="toastrColor" [(visible)]="visible" (visibleChange)="(true)">
+    <c-toast-header> Add Product Category </c-toast-header>
+    <c-toast-body>
+      <p *ngFor="let message of messages">
+        {{ message }}
+      </p>
+      <!-- <c-progress thin>
+        <c-progress-bar [value]="percentage"></c-progress-bar>
+      </c-progress> -->
+    </c-toast-body>
+  </c-toast>
+</c-toaster>

@@ -1,0 +1,7 @@
+{
+  "/api": {
+    "target": "https://wmsback.stepprojects.ge/",
+    "secure": true,
+    "changeOrigin": true
+  }
+}

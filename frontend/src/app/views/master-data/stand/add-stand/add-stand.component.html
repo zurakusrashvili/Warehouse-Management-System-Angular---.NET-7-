@@ -1,0 +1,158 @@
+<c-col xs="12">
+    <c-card class="mb-4">
+      <c-card-header ngPreserveWhitespaces>
+        <strong>Add</strong> <small> Stand</small>
+      </c-card-header>
+      <c-card-body>
+        <form
+          cForm
+          [formGroup]="addStandForm"
+          novalidate
+          (ngSubmit)="onSubmit()"
+        >
+
+          <!--  Warehouse -->
+          <c-row class="mb-1">
+            <label cCol [sm]="4" cLabel="col" for="warehouseId"
+              > Warehouse</label
+            >
+            <c-col
+              [sm]="4"
+              *ngIf="addStandForm.controls['warehouseId'] as ctrl"
+            >
+              <select
+                formControlName="warehouseId"
+                cSelect
+                id="validationTooltip04"
+                required
+                autocomplete="off"
+                [autofocus]="true"
+                type="number"
+                [valid]="
+                ctrl.touched && ctrl.valid
+                  ? true
+                  : (submitted || ctrl.touched) && ctrl.invalid
+                  ? false
+                  : undefined
+              "
+              >
+                <option value="">Choose...</option>
+                <option
+                  *ngFor="
+                    let Warehouse of warehouses;
+                    let i = index
+                  "
+                  [ngValue]="Warehouse.id"
+                >
+                  {{ Warehouse.name }}
+                </option>
+              </select>
+  
+              <c-form-feedback
+                *ngIf="submitted || ctrl.invalid"
+                [valid]="!(submitted || ctrl.invalid)"
+              >
+                <ng-container *ngIf="ctrl.errors as errors">
+                  <div *ngIf="errors?.['required']">
+                     Warehouse is required
+                  </div>
+                </ng-container>
+              </c-form-feedback>
+            </c-col>
+          </c-row>
+          <c-row class="mb-1">
+            <label cCol [sm]="4" cLabel="col" for="standname">Stand Name</label>
+            <c-col [sm]="4" *ngIf="addStandForm.controls['standName'] as ctrl">
+              <input
+                cFormControl
+                id="standName"
+                formControlName="standName"
+                placeholder=" Stand Name"
+                autocomplete="off"
+                required
+                [autofocus]="true"
+                [valid]="
+                  ctrl.touched && ctrl.valid
+                    ? true
+                    : (submitted || ctrl.touched) && ctrl.invalid
+                    ? false
+                    : undefined
+                "
+              />
+              <c-form-feedback
+                *ngIf="submitted || ctrl.invalid"
+                [valid]="!(submitted || ctrl.invalid)"
+              >
+                <ng-container *ngIf="ctrl.errors as errors">
+                  <div *ngIf="errors?.['required']"> Stand Name is required</div>
+                </ng-container>
+              </c-form-feedback>
+            </c-col>
+          </c-row>
+          <!-- <c-row class="mb-1">
+            <label cCol [sm]="4" cLabel="col" for="description">Description</label>
+            <c-col [sm]="4" *ngIf="addStandForm.controls['description'] as ctrl">
+              <input
+                cFormControl
+                id="description"
+                formControlName="description"
+                placeholder=" Stand Description"
+                autocomplete="off"
+                [autofocus]="true"
+  
+              />
+              <c-form-feedback
+                *ngIf="submitted || ctrl.invalid"
+                [valid]="!(submitted || ctrl.invalid)"
+              >
+                <ng-container *ngIf="ctrl.errors as errors">
+                  <div *ngIf="errors?.['required']"> Stand Description is required</div>
+                </ng-container>
+              </c-form-feedback>
+            </c-col>
+          </c-row> -->
+          <c-col xs="12">
+            <button
+              cButton
+              color="danger"
+              class="me-1"
+              type="submit"
+              [disabled]="addStandForm.invalid"
+              [tabindex]="'0'"
+            >
+              Save
+            </button>
+            <button
+              cButton
+              color="secondary"
+              type="reset"
+              [tabindex]="'0'"
+              routerLink="/master-data/-categories"
+            >
+              Back
+            </button>
+          </c-col>
+        </form>
+      </c-card-body>
+    </c-card>
+  </c-col>
+  
+  <c-toaster [placement]="position" class="p-3" position="fixed"
+  >
+    <c-toast
+      [color]="toastrColor"
+      [(visible)]="visible"
+      (visibleChange)="true"
+    >
+      <c-toast-header> Add  Stand </c-toast-header>
+      <c-toast-body>
+        <p *ngFor="let message of messages">
+          {{ message }}
+        </p>
+        <!-- <c-progress thin>
+          <c-progress-bar [value]="percentage"></c-progress-bar>
+        </c-progress> -->
+      </c-toast-body>
+    </c-toast>
+  </c-toaster>
+  

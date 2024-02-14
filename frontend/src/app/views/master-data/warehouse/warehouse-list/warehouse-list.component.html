@@ -1,0 +1,91 @@
+<c-row>
+    <c-col xs>
+      <c-card class="mb-4">
+  
+        <c-card-header>Warehouses
+          <button
+          routerLink="/master-data/warehouse/add"
+          cButton
+          class="me-1 float-end"
+          color="primary"
+          value="Add"
+        >
+          Add
+        </button>
+        </c-card-header>
+        <c-card-body>
+  
+          <table
+            [hover]="true"
+            [responsive]="true"
+            [striped]="true"
+            align="middle"
+            cTable
+            class="mb-0 border"
+          >
+            <thead cTableColor="light">
+              <tr>
+                <th>
+                  <svg cIcon name="cilPeople"></svg>
+                </th>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Phonenumber</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let warehouse of warehouses; index as i">
+                <td></td>
+                <td>
+                  <span>
+                    {{ warehouse.name }}
+                  </span>
+                </td>
+                <td>
+                  {{ warehouse.address }}
+                </td>
+                <td>
+                  {{ warehouse.phoneNumber }}
+                </td>
+  
+                <td>
+                  <button
+                    [routerLink]="['/master-data/warehouse/details', warehouse.id]"
+                    cButton
+                    class="me-1"
+                    color="secondary"
+                    type="submit"
+                    value="Edit"
+                  >
+                    Details
+                  </button>
+                  <button
+                    [routerLink]="['/master-data/warehouse/edit', warehouse.id]"
+                    cButton
+                    class="me-1"
+                    color="success"
+                    type="submit"
+                    value="Edit"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    [routerLink]="['/master-data/warehouse/delete', warehouse.id]"
+                    cButton
+                    class="me-1"
+                    color="danger"
+                    type="submit"
+                    value="Delete"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </c-card-body>
+      </c-card>
+    </c-col>
+  </c-row>
+  
